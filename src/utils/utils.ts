@@ -5,10 +5,11 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-export function loadFile(filename: string): string[] {
-  const absolutePath = path.resolve(__dirname, filename)
+export function loadInputFile(filename: string): string[] {
+  let absolutePath
 
   try {
+    absolutePath = path.resolve(__dirname, filename)
     const content = fs.readFileSync(absolutePath, 'utf-8')
 
     return content
