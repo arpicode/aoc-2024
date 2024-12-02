@@ -1,34 +1,34 @@
-interface IParsedInput {
+interface IParsedLocationIds {
   leftIds: number[]
   rightIds: number[]
 }
 
 export function totalDistance(input: string[]): number {
-  const parsedInput = parseInput(input)
+  const parsedInput = parseLocationIds(input)
   const sortedParsedInput = sortLocationIds(parsedInput)
 
-  return calculateDistance(sortedParsedInput.leftIds, sortedParsedInput.rightIds)
+  return computeTotalDistance(sortedParsedInput.leftIds, sortedParsedInput.rightIds)
 }
 
-function sortLocationIds(parsedInput: IParsedInput): IParsedInput {
+function sortLocationIds(parsedInput: IParsedLocationIds): IParsedLocationIds {
   return {
     leftIds: parsedInput.leftIds.slice().sort(),
     rightIds: parsedInput.rightIds.slice().sort(),
   }
 }
 
-function calculateDistance(left: number[], right: number[]): number {
+function computeTotalDistance(left: number[], right: number[]): number {
   return left.reduce((distance, value, i) => distance + Math.abs(value - right[i]), 0)
 }
 
 export function similarityScore(input: string[]): number {
-  const parsedInput = parseInput(input)
-  const rightFrequencyMap = createFrequencyMap(parsedInput.rightIds)
+  const parsedInput = parseLocationIds(input)
+  const rightFrequencyMap = generateFrequencyMap(parsedInput.rightIds)
 
-  return calculateScore(parsedInput.leftIds, rightFrequencyMap)
+  return computeSimilarityScore(parsedInput.leftIds, rightFrequencyMap)
 }
 
-function createFrequencyMap(numbers: number[]): Map<number, number> {
+function generateFrequencyMap(numbers: number[]): Map<number, number> {
   const frequencyMap = new Map<number, number>()
   numbers.forEach((num) => {
     frequencyMap.set(num, (frequencyMap.get(num) ?? 0) + 1)
@@ -37,12 +37,12 @@ function createFrequencyMap(numbers: number[]): Map<number, number> {
   return frequencyMap
 }
 
-function calculateScore(left: number[], rightFrequencyMap: Map<number, number>): number {
+function computeSimilarityScore(left: number[], rightFrequencyMap: Map<number, number>): number {
   return left.reduce((score, leftValue) => score + leftValue * (rightFrequencyMap.get(leftValue) ?? 0), 0)
 }
 
-function parseInput(input: string[]): IParsedInput {
-  const parsed: IParsedInput = { leftIds: [], rightIds: [] }
+function parseLocationIds(input: string[]): IParsedLocationIds {
+  const parsed: IParsedLocationIds = { leftIds: [], rightIds: [] }
 
   input.forEach((pair) => {
     const [left, right] = pair.split(/\s+/).map(Number)

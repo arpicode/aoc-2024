@@ -1,5 +1,5 @@
 import { loadInputFile } from '@src/utils/utils'
-import { isSafe, isSafeWithTolerance, totalReports } from '../main'
+import { isReportSafe, isReportSafeWithTolerance, countSafeReports } from '../main'
 
 describe('Day 2', () => {
   const MAX_INPUT_ENTRIES = 6
@@ -21,27 +21,27 @@ describe('Day 2', () => {
   })
 
   describe('Part 1', () => {
-    it('should correctly compute the total safe reports', () => {
-      expect(totalReports(input, isSafe)).toBe(2)
+    it('should correctly count the number of safe reports', () => {
+      expect(countSafeReports(input, isReportSafe)).toBe(2)
     })
 
     it.each(testCases)(
-      'should correctly state if the report $report is safe ($isSafeExpected)',
+      'should correctly determine if the report $report is safe ($isSafeExpected)',
       ({ report, isSafeExpected }: { report: number[]; isSafeExpected: boolean }) => {
-        expect(isSafe(report)).toBe(isSafeExpected)
+        expect(isReportSafe(report)).toBe(isSafeExpected)
       }
     )
   })
 
   describe('Part 2', () => {
-    it('should correctly compute the total safe reports with tolerance', () => {
-      expect(totalReports(input, isSafeWithTolerance)).toBe(4)
+    it('should correctly count the number of safe reports with tolerance', () => {
+      expect(countSafeReports(input, isReportSafeWithTolerance)).toBe(4)
     })
 
     it.each(testCases)(
-      'should correctly state if the report $report is safe with tolerance ($isSafeWithToleranceExpected)',
+      'should correctly determine if the report $report is safe with tolerance ($isSafeWithToleranceExpected)',
       ({ report, isSafeWithToleranceExpected }: { report: number[]; isSafeWithToleranceExpected: boolean }) => {
-        expect(isSafeWithTolerance(report)).toBe(isSafeWithToleranceExpected)
+        expect(isReportSafeWithTolerance(report)).toBe(isSafeWithToleranceExpected)
       }
     )
   })
