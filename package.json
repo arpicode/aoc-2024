@@ -8,7 +8,7 @@
     "start": "tsx src/index.ts",
     "test": "vitest",
     "test:cov": "vitest --coverage",
-    "text:ui": "vitest --ui",
+    "test:ui": "vitest --ui",
     "lint": "eslint src/**",
     "format": "prettier --write .",
     "validate": "npm run lint && npm run format"
