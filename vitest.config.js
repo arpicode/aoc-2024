@@ -15,7 +15,7 @@ export default defineConfig({
     environment: 'node',
     coverage: {
       include: ['**/*.ts'],
-      exclude: ['**/interfaces/**', ...coverageConfigDefaults.exclude],
+      exclude: ['**/index.ts', '**/interfaces/**', ...coverageConfigDefaults.exclude],
     },
   },
 })

@@ -1,4 +1,4 @@
-interface ParsedInput {
+interface IParsedInput {
   leftIds: number[]
   rightIds: number[]
 }
@@ -10,7 +10,7 @@ export function totalDistance(input: string[]): number {
   return calculateDistance(sortedParsedInput.leftIds, sortedParsedInput.rightIds)
 }
 
-function sortLocationIds(parsedInput: ParsedInput): ParsedInput {
+function sortLocationIds(parsedInput: IParsedInput): IParsedInput {
   return {
     leftIds: parsedInput.leftIds.slice().sort(),
     rightIds: parsedInput.rightIds.slice().sort(),
@@ -41,8 +41,8 @@ function calculateScore(left: number[], rightFrequencyMap: Map<number, number>):
   return left.reduce((score, leftValue) => score + leftValue * (rightFrequencyMap.get(leftValue) ?? 0), 0)
 }
 
-function parseInput(input: string[]): ParsedInput {
-  const parsed: ParsedInput = { leftIds: [], rightIds: [] }
+function parseInput(input: string[]): IParsedInput {
+  const parsed: IParsedInput = { leftIds: [], rightIds: [] }
 
   input.forEach((pair) => {
     const [left, right] = pair.split(/\s+/).map(Number)
