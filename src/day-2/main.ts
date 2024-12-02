@@ -1,5 +1,7 @@
-type ParsedReports = number[][]
-type ReportSafetyPredicate = (report: number[]) => boolean
+type Level = number
+type Report = Level[]
+type ParsedReports = Report[]
+type ReportSafetyPredicate = (report: Report) => boolean
 
 export function countSafeReports(input: string[], predicate: ReportSafetyPredicate): number {
   const parsedInput = parseReports(input)
@@ -8,11 +10,11 @@ export function countSafeReports(input: string[], predicate: ReportSafetyPredica
   return safeReports.length
 }
 
-export function isReportSafe(report: number[]): boolean {
+export function isReportSafe(report: Report): boolean {
   return areConsecutiveDistancesInBounds(report)
 }
 
-export function isReportSafeWithTolerance(report: number[]): boolean {
+export function isReportSafeWithTolerance(report: Report): boolean {
   if (isReportSafe(report)) return true
 
   for (let i = 0; i < report.length; i++) {
@@ -23,25 +25,25 @@ export function isReportSafeWithTolerance(report: number[]): boolean {
   return false
 }
 
-function isArraySorted(arr: number[]): boolean {
+function isReportSorted(report: Report): boolean {
   let ascending = true
   let descending = true
 
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] < arr[i - 1]) ascending = false
-    if (arr[i] > arr[i - 1]) descending = false
+  for (let i = 1; i < report.length; i++) {
+    if (report[i] < report[i - 1]) ascending = false
+    if (report[i] > report[i - 1]) descending = false
     if (!ascending && !descending) return false
   }
 
   return true
 }
 
-function areConsecutiveDistancesInBounds(arr: number[], minDistance = 1, maxDistance = 3): boolean {
-  if (!isArraySorted(arr)) return false
+function areConsecutiveDistancesInBounds(report: Report, minDistance = 1, maxDistance = 3): boolean {
+  if (!isReportSorted(report)) return false
 
-  for (let i = 1; i < arr.length; i++) {
-    const diff = Math.abs(arr[i] - arr[i - 1])
-    if (diff < minDistance || diff > maxDistance) return false
+  for (let i = 1; i < report.length; i++) {
+    const currentDistance = Math.abs(report[i] - report[i - 1])
+    if (currentDistance < minDistance || currentDistance > maxDistance) return false
   }
 
   return true
