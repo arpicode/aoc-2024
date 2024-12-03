@@ -67,5 +67,3 @@ If you are using `npm`, add...
 ## Disclaimer
 
 Since it's a puzzle event, given inputs are considered trustworthy and well-formed (unless stated otherwise). Hence, validation and edge cases aren't considered.
-
-_Code reviews are welcome!_
