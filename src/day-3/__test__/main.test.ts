@@ -18,11 +18,44 @@ describe('Day 3', () => {
     it('should correctly sum all valid mul instructions', () => {
       expect(sumMultiplications(part1Input)).toBe(161)
     })
+
+    it('should return 0 for empty input in sumMultiplications', () => {
+      expect(sumMultiplications([])).toBe(0)
+    })
+
+    it('should handle input with no valid mul instructions', () => {
+      const input = ['invalid(2,3)', 'mul(-4,5)', 'mul(6,+7)']
+      expect(sumMultiplications(input)).toBe(0)
+    })
   })
 
   describe('Part 2', () => {
     it('should correctly sum all valid and enabled mul instructions', () => {
       expect(sumEnabledMultiplications(part2Input)).toBe(48)
+    })
+
+    it('should return 0 for empty input', () => {
+      expect(sumEnabledMultiplications([])).toBe(0)
+    })
+
+    it("should correctly handle don't() instructions", () => {
+      const input = ["don't()", 'mul(2,3)', 'mul(4,5)', 'mul(6,7)']
+      expect(sumEnabledMultiplications(input)).toBe(0)
+    })
+
+    it('should correctly handle do() instructions', () => {
+      const input = ['do()', 'mul(2,3)', 'mul(4,5)', 'mul(6,7)']
+      expect(sumEnabledMultiplications(input)).toBe(2 * 3 + 4 * 5 + 6 * 7)
+    })
+
+    it("should correctly handle no don't() or do() instructions", () => {
+      const input = ['mul(2,3)', 'mul(4,5)', 'mul(6,7)']
+      expect(sumEnabledMultiplications(input)).toBe(2 * 3 + 4 * 5 + 6 * 7)
+    })
+
+    it('should handle input with no valid mul instructions', () => {
+      const input = ['invalid(2,3)', 'mul(-4,5)', 'mul(6,+7)']
+      expect(sumEnabledMultiplications(input)).toBe(0)
     })
   })
 })
